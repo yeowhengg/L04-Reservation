@@ -4,8 +4,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,43 +73,51 @@ public class MainActivity extends AppCompatActivity {
         timecount = 0;
         date = "";
         time = "";
+        timePicker.setHour(19);
+        timePicker.setMinute(30);
 
         btnDate.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v){
-
                 if(btnDate.isPressed() && datecount == 0){
                     datePicker.setVisibility(View.VISIBLE);
                     btnDate.setText("Confirm");
+                    btnTime.setEnabled(false);
                     datecount++;
                 }
                 else{
                     datePicker.setVisibility(View.GONE);
                     datecount = 0;
                     btnDate.setText("Choose Date");
-                    date = String.format("%d/%d/%d", datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear());
-                    datetimeformat =  dateValidation(datePicker) ? String.format("Date: %s | Time: %s",date,time) : String.format("Date: %s | Time: %s","Invalid Date",time);
-                }
-
-                if(!date.isEmpty()){
+                    date = dateValidation(datePicker) ? String.format("%d/%d/%d", datePicker.getDayOfMonth(), datePicker.getMonth() + 1, datePicker.getYear()) : "Invalid Date";
+                    datetimeformat = String.format("Date: %s : Time: %s",date,time);
                     datetimeOutput.setText(datetimeformat);
                 }
 
-                if(dateValidation(datePicker)){
-                    btnTime.setEnabled(true);
-                }else{
+                if(datecount == 0 && btnDate.isPressed()){
                     btnTime.setEnabled(false);
+                    if(!dateValidation(datePicker)){
+                        btnTime.setEnabled(false);
+                        Toast.makeText(MainActivity.this, "Invalid Date",Toast.LENGTH_SHORT).show();
+                        datetimeformat = String.format("Date: %s : Time: %s",date,"");
+                        datetimeOutput.setText(datetimeformat);
+                    }
+                    else{
+                        btnTime.setEnabled(true);
+                    }
                 }
+
             }
         });
 
-
         btnTime.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v){
-
+                String[] hour_meridian = new String[2];
                 if(btnTime.isPressed() && timecount == 0){
+                    btnDate.setEnabled(false);
                     timePicker.setVisibility(View.VISIBLE);
                     btnTime.setText("Confirm");
                     timecount++;
@@ -114,40 +125,59 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     timePicker.setVisibility(View.GONE);
                     btnTime.setText("Choose Time");
+                    btnDate.setEnabled(true);
                     timecount = 0;
-                    time = String.format("%d-%02d", timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-                    timeValidation(timePicker);
+                    hour_meridian = returnHourAndMeridiem(timePicker);
+
+                        if(timeValidation(timePicker)){
+                            time = String.format("%s:%02d %s", hour_meridian[0], timePicker.getCurrentMinute(), hour_meridian[1]);
+                        }
+                        else{
+                            time = String.format("%s:%s %s", "8", "59", "PM");
+                            timePicker.setHour(20);
+                            timePicker.setMinute(59);
+                            Toast.makeText(MainActivity.this,"Only 8am to 859pm",Toast.LENGTH_SHORT).show();
+                        }
+                    datetimeformat = String.format("Date: %s : Time: %s",date,time);
                     datetimeOutput.setText(datetimeformat);
-                    datetimeformat = String.format("Date: %s | Time: %s",date,time);
                 }
-
-                if(!time.isEmpty()){
-                    datetimeOutput.setText(datetimeformat);
-                }
-
-
             }
-
         });
 
         btnCfm.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v){
+                finalOutput.setText("");
+                finalOutput.setTextColor(Color.argb(255,255,0,0));
                 String getName = nameTxt.getText().toString();
                 String getPhone = phoneNoTxt.getText().toString();
                 String getGrpSize = groupSizeTxt.getText().toString();
 
                 if (!inputValidation(getName, getPhone, getGrpSize)) {
-                    finalOutput.setText("Please enter the inputs correctly");
+                    Toast.makeText(MainActivity.this, "Please enter your details correctly",Toast.LENGTH_SHORT).show();
+                }
+                else if(date.isEmpty() || time.isEmpty()) {
+                    finalOutput.setText("Date time fields efeff not filled up correctly");
+                }
+
+                else if(!timeValidation(timePicker) || !dateValidation(datePicker)){
+                    finalOutput.setText("Date fields are not filled up correctly");
                 }
                 else{
-                    finalOutput.setText(String.format("Reservation booked! Your details are: \nName: %s \nNumber: %s \nGroup Size: %s \nSmoking Corner: %s \nDate and time: %s",getName,getPhone,getGrpSize,cbSmoking.isChecked()?"Wants smoking corner":"Normal table area",datetimeformat));
+                    Toast.makeText(MainActivity.this,String.format("Reservation booked! Your details are: \nName: %s \nNumber: %s \nGroup Size: %s \nSmoking Corner: %s \n%s",getName,getPhone,getGrpSize,cbSmoking.isChecked()?"Yes":"No",datetimeformat),Toast.LENGTH_LONG).show();
+                    finalOutput.setText("");
                 }
             }
         });
 
-
-
+        btnReset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
+                startActivity(getIntent());
+            }
+        });
     }
 
 
@@ -160,27 +190,35 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean dateValidation(DatePicker date){
-        Log.println(Log.DEBUG,"debug",String.format("Year: %d",LocalDate.now().getYear()));
-        Log.println(Log.DEBUG,"debug",String.format("Month: %d",LocalDate.now().getMonthValue()));
-
+        Log.println(Log.DEBUG,"debug",String.format("This is for the time picker: \nYear: %d\nMonth: %d\nDay :%d",date.getYear(),date.getMonth() + 1,date.getDayOfMonth()));
+        Log.println(Log.DEBUG,"debug",String.format("\nThis is for localdate: \nYear: %d \nMonth: %d \nDay: %d",LocalDate.now().getYear(),LocalDate.now().getMonth().getValue(),LocalDate.now().getDayOfMonth()));
         if(date.getYear() == LocalDate.now().getYear()){
             if(date.getMonth() + 1 == LocalDate.now().getMonth().getValue()){
                 if(date.getDayOfMonth() <= LocalDate.now().getDayOfMonth()){
                     Toast.makeText(MainActivity.this, "Please select a date that is not today or yesterday",Toast.LENGTH_LONG);
                     return false;
                 }
-
+            }
+            else if(date.getMonth() + 1 <= LocalDate.now().getMonthValue()){
+                return false;
             }
         }
         return true;
 
     }
 
+    //no method to allow us to view AM or PM selected
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public String[] returnHourAndMeridiem(TimePicker time){
+        String[] hourAndMeridiem = new String[2];
+        hourAndMeridiem[0] = time.getCurrentHour() > 12 ? String.format("%d",time.getCurrentHour() - 12) : String.format("%d",time.getCurrentHour());
+        hourAndMeridiem[1] = time.getCurrentHour() > 12 ? "PM" : "AM";
+        return hourAndMeridiem;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean timeValidation(TimePicker time){
-
-
-        return true;
+        return time.getCurrentHour() >= 8 && (time.getCurrentHour() <= 20 && time.getCurrentMinute() <= 59) ? true:false;
     }
 
 

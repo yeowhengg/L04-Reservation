@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30dp"
-            android:text="Diner Reservation"
+            android:text="@string/diner_reservation"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center_horizontal">
         </TextView>
@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name:">
+                android:text="@string/name">
 
             </TextView>
 
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mobile Number:">
+                android:text="@string/mobile_number">
 
             </TextView>
 
@@ -73,7 +73,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Group Size:">
+                android:text="@string/group_size">
 
             </TextView>
 
@@ -95,14 +95,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date and Time">
+                android:text="@string/date_and_time">
             </TextView>
 
             <Button
                 android:id="@+id/btnDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose Date">
+                android:text="@string/choose_date">
             </Button>
 
             <DatePicker
@@ -116,14 +116,17 @@
                 android:id="@+id/btnTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose Time">
+                android:text="@string/choose_time"
+                android:enabled="false">
             </Button>
 
             <TimePicker
                 android:id="@+id/timeId"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                >
 
             </TimePicker>
 
@@ -131,7 +134,7 @@
                 android:id="@+id/displayDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date: Time: ">
+                android:text="@string/date_time">
 
             </TextView>
 
@@ -145,14 +148,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Table Area: ">
+                android:text="@string/table_area">
             </TextView>
 
             <CheckBox
                 android:id="@+id/cbSmoke"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Smoking Corner">
+                android:text="@string/smoking_corner">
             </CheckBox>
 
         </LinearLayout>
@@ -166,7 +169,7 @@
                 android:id="@+id/btnCfm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirm"
+                android:text="@string/confirm"
                 android:layout_marginRight="10dp">
             </Button>
 
@@ -174,7 +177,7 @@
                 android:id="@+id/btnReset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reset">
+                android:text="@string/reset">
 
             </Button>
 

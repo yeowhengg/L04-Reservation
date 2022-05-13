@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">L04-Reservation</string>
+    <string name="diner_reservation">Diner Reservation</string>
+    <string name="name">Name:</string>
+    <string name="mobile_number">Mobile Number:</string>
+    <string name="group_size">Group Size:</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="table_area">Table Area:</string>
+    <string name="choose_date">Choose Date</string>
+    <string name="date_time">Date: Time:</string>
+    <string name="confirm">Confirm</string>
+    <string name="smoking_corner">Smoking Corner</string>
+    <string name="reset">Reset</string>
+    <string name="choose_time">Choose Time</string>
 </resources>
