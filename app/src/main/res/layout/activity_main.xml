@@ -99,10 +99,10 @@
             </TextView>
 
             <Button
-                android:id="@+id/btnDateTime"
+                android:id="@+id/btnDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose Date and Time">
+                android:text="Choose Date">
             </Button>
 
             <DatePicker
@@ -111,6 +111,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </DatePicker>
+
+            <Button
+                android:id="@+id/btnTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose Time">
+            </Button>
 
             <TimePicker
                 android:id="@+id/timeId"
@@ -123,7 +130,8 @@
             <TextView
                 android:id="@+id/displayDateTime"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="Date: Time: ">
 
             </TextView>
 
@@ -175,7 +183,8 @@
         <TextView
             android:id="@+id/outputDisplay"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
         </TextView>
 
