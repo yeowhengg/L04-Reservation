@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="15dp"
+    tools:context=".MainActivity"
+    android:layout_gravity="right">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:text="Diner Reservation"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:">
+
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEditName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Number:">
+
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="number"
+                android:id="@+id/txtEditNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Group Size:">
+
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:inputType="number"
+                android:id="@+id/txtEditGroupSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.google.android.material.textfield.TextInputEditText>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date and Time">
+            </TextView>
+
+            <Button
+                android:id="@+id/btnDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose Date and Time">
+            </Button>
+
+            <DatePicker
+                android:id="@+id/dateId"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </DatePicker>
+
+            <TimePicker
+                android:id="@+id/timeId"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TimePicker>
+
+            <TextView
+                android:id="@+id/displayDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Table Area: ">
+            </TextView>
+
+            <CheckBox
+                android:id="@+id/cbSmoke"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Smoking Corner">
+            </CheckBox>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:id="@+id/btnCfm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:layout_marginRight="10dp">
+            </Button>
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset">
+
+            </Button>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/outputDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>
